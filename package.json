@@ -6,6 +6,9 @@
 	"engines": {
 		"vscode": "^1.69.0"
 	},
+	"repository": {
+		"url": "https://github.com/mainawycliffe/view-package-on-npm"
+	},
 	"categories": [
 		"Other"
 	],
