@@ -14,6 +14,8 @@ jobs:
           node-version: 16
       - name: Install Dependencies
         run: yarn install
+
+      - run: yarn esbuild-base
       # - name: Publish to Open VSX Registry
       #   uses: HaaLeo/publish-vscode-extension@v1
       #   with:
