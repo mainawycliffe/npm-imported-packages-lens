@@ -1,7 +1,7 @@
 {
-	"name": "link-package-npm",
-	"displayName": "Link Package NPM",
-	"description": "",
+	"name": "open-package-on-npm",
+	"displayName": "Open Imported Packages on NPM",
+	"description": "Provides a link to open packages imported in javascript and typescript files on npm",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.69.0"
@@ -33,7 +33,6 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn run package",
 		"compile": "webpack",
 		"watch": "webpack --watch",
 		"package": "webpack --mode production --devtool hidden-source-map",
@@ -41,7 +40,12 @@
 		"watch-tests": "tsc -p . -w --outDir out",
 		"pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"vscode:prepublish": "npm run esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+		"esbuild": "npm run esbuild-base -- --sourcemap",
+		"esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+		"test-compile": "tsc -p ./"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.2.0",
@@ -51,6 +55,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
 		"@typescript-eslint/parser": "^5.30.0",
 		"@vscode/test-electron": "^2.1.5",
+		"esbuild": "^0.14.49",
 		"eslint": "^8.18.0",
 		"eslint-config-prettier": "^8.5.0",
 		"glob": "^8.0.3",
