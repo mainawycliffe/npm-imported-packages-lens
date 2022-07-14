@@ -3,6 +3,7 @@
 	"displayName": "View Imported Packages on NPM",
 	"description": "Provides a link to view a package imported in javascript and typescript files on npm",
 	"version": "0.0.1",
+	"publisher": "MainaWycliffe",
 	"engines": {
 		"vscode": "^1.69.0"
 	},
