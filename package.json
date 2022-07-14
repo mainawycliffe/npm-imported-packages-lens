@@ -10,14 +10,25 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:link-package-npm.helloWorld"
+		"onLanguage:typescript",
+		"onLanguage:javascript",
+		"onLanguage:typescriptreact",
+		"onLanguage:javascriptreact"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
-		"commands": [
+		"breakpoints": [
 			{
-				"command": "link-package-npm.helloWorld",
-				"title": "Hello World"
+				"language": "javascript"
+			},
+			{
+				"language": "typescript"
+			},
+			{
+				"language": "javascriptreact"
+			},
+			{
+				"language": "typescriptreact"
 			}
 		]
 	},
