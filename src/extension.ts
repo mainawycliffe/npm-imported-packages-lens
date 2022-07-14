@@ -92,8 +92,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(regCodeLensProviderDisposable);
-  context.subscriptions.push(regCommandDisposable);
+  context.subscriptions.push(
+    regCodeLensProviderDisposable,
+    regCommandDisposable
+  );
 }
 
 // this method is called when your extension is deactivated
