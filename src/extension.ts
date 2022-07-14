@@ -49,7 +49,7 @@ export function buildLink(importTextLine: vscode.TextLine) {
   const linkUri = `https://www.npmjs.com/package/${packageName}`;
 
   return new vscode.CodeLens(linkRange, {
-    title: `View ${packageName} package on npm.js`,
+    title: `View ${packageName} on npmjs.com`,
     command: "openPackageOnNPM",
     arguments: [linkUri],
   });
