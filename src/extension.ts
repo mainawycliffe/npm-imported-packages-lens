@@ -19,6 +19,11 @@ export function determinePackageNameForNPM(
     .replace("'", '"')
     .split('"')[1];
 
+  // if import path is undfined
+  if (!importPath) {
+    return "";
+  }
+
   // local imports, not an npm package
   if (
     importPath.startsWith("/") ||
