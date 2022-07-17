@@ -1,78 +1,82 @@
 import * as vscode from "vscode";
 import got from "got";
+import { tsquery } from "@phenomnomnominal/tsquery";
+import { SyntaxKind } from "typescript";
+import { AST } from "eslint";
+import ts = require("typescript");
 
 export async function fetchPackageInfoFromNPM(packageName: string) {
   const res = await got.get(`https://registry.npmjs.com/${packageName}/latest`);
-  console.log(JSON.stringify(JSON.parse(res.body), null, 2));
   return JSON.parse(res.body);
 }
 
-export function determinePackageNameForNPM(
-  importTextLine: vscode.TextLine
-): string {
-  // to determine a package name is a little tricky, make cross reference with
-  // because paths are included, also exclude local files
-  const importPath = importTextLine.text
-    .replace("'", '"')
-    // replaceAll is currently unavaible on the target es version for this
-    // project, so excuse this dirty workaround
-    .replace("'", '"')
-    .split('"')[1];
-
-  // if import path is undfined
+export function determinePackageNameForNPM(importPath: string): string {
+  // if import path is undefined
   if (!importPath) {
     return "";
   }
-
+  const cleanImportPath = importPath.replace(/'/g, "").trim();
   // local imports, not an npm package
   if (
-    importPath.startsWith("/") ||
-    importPath.startsWith("./") ||
-    importPath.startsWith("../") ||
-    importPath.startsWith("~")
+    cleanImportPath.startsWith("/") ||
+    cleanImportPath.startsWith("./") ||
+    cleanImportPath.startsWith("../") ||
+    cleanImportPath.startsWith("~")
   ) {
     return "";
   }
 
   // npm package belongs to organization or is in tsconfig
-  if (importPath.startsWith("@")) {
-    const pathsArray = importPath.split("/");
+  if (cleanImportPath.startsWith("@")) {
+    const pathsArray = cleanImportPath.split("/");
     return `${pathsArray[0]}/${pathsArray[1]}`;
   }
 
   // return only the first path without a package
-  return importPath.split("/")[0];
+  return cleanImportPath.split("/")[0];
 }
 
-export async function buildLink(
+export function constructPackageNameFromAstNode(
+  node: ts.Node,
+  document: vscode.TextDocument
+) {
+  const importPath = node
+    .getChildren()
+    .filter((n) => {
+      if (n.kind === SyntaxKind.StringLiteral) {
+        return true;
+      }
+      return false;
+    })
+    .map((n) => n.getFullText());
+  const line = document.positionAt(node.getStart());
+  const text = document.lineAt(line.line);
+  const packageName = determinePackageNameForNPM(
+    importPath[0].replace(/'/g, "").trim()
+  );
+  return {
+    importLineText: text,
+    packageName: packageName,
+  };
+}
+
+export function buildCodeLens(
   importTextLine: vscode.TextLine,
   packageName: string
 ) {
-  const startCharacter = importTextLine.text.indexOf(packageName);
-  const endCharacter = startCharacter + packageName.length;
-  const linkRange = new vscode.Range(
-    importTextLine.lineNumber,
-    startCharacter,
-    importTextLine.lineNumber,
-    endCharacter
-  );
-
+  const codeLensRange = importTextLine.range;
   return [
-    new vscode.CodeLens(linkRange, {
-      title: `View ${packageName} on `,
-      command: "",
-    }),
-    new vscode.CodeLens(linkRange, {
-      title: `NPM`,
+    new vscode.CodeLens(codeLensRange, {
+      title: `View ${packageName} on NPM`,
       command: "openPackage",
       arguments: [packageName, "npm"],
     }),
-    new vscode.CodeLens(linkRange, {
+    new vscode.CodeLens(codeLensRange, {
       title: `GitHub`,
       command: "openPackage",
       arguments: [packageName, "github"],
     }),
-    new vscode.CodeLens(linkRange, {
+    new vscode.CodeLens(codeLensRange, {
       title: `Homepage`,
       command: "openPackage",
       arguments: [packageName, "homepage"],
@@ -87,38 +91,19 @@ export function activate(context: vscode.ExtensionContext) {
     ["typescript", "typescriptreact", "javascript", "javascriptreact"],
     {
       provideCodeLenses(document, token) {
-        const res = Array.from(Array(document.lineCount).keys())
-          .map((line) => document.lineAt(line))
-          .filter((lineContent) => {
-            if (lineContent.text.includes("import")) {
-              return true;
-            }
-            return false;
-          })
-          // get package name, returns "" if not a package
-          .map((importLineText) => {
-            const packageName = determinePackageNameForNPM(importLineText);
-            return {
-              packageName,
-              importLineText,
-            };
-          })
-          // remove empty packages
-          .filter(({ packageName }) => packageName !== "")
-          .map(({ importLineText, packageName }) => {
-            return buildLink(importLineText, packageName);
-          });
-
-        let lenses: vscode.CodeLens[] = [];
-
-        res.forEach(async (lensesArray) => {
-          const lensesNested = await lensesArray;
-          lensesNested.forEach((lens) => {
-            lenses.push(lens);
-          });
-        });
-
-        return lenses;
+        const ast = tsquery.ast(document.getText());
+        const nodes = tsquery(ast, "ImportDeclaration");
+        return (
+          nodes
+            // get package name, returns "" if not a package
+            .map((node) => constructPackageNameFromAstNode(node, document))
+            // remove empty packages
+            .filter(({ packageName }) => packageName !== "")
+            .map(({ importLineText, packageName }) =>
+              buildCodeLens(importLineText, packageName)
+            )
+            .flat()
+        );
       },
     }
   );
@@ -126,7 +111,6 @@ export function activate(context: vscode.ExtensionContext) {
   let regCommandDisposable = vscode.commands.registerCommand(
     "openPackage",
     async (...args: [string, "npm" | "github" | "homepage"]) => {
-      console.log("Yay!", args);
       const [packageName, destination] = args;
       if (destination === "npm") {
         const link = vscode.Uri.parse(
