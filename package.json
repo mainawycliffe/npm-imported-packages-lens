@@ -2,7 +2,7 @@
 	"name": "view-package-on-npm",
 	"displayName": "NPM Imported Packages Lens",
 	"description": "Provides a link to view packages imported in javascript and typescript files on npm or github repository",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"publisher": "MainaWycliffe",
 	"engines": {
 		"vscode": "^1.69.0"
