@@ -1,7 +1,7 @@
 {
 	"name": "view-package-on-npm",
-	"displayName": "View Imported Packages on NPM",
-	"description": "Provides a link to view a package imported in javascript and typescript files on npm",
+	"displayName": "NPM Imported Packages Lens",
+	"description": "Provides a link to view packages imported in javascript and typescript files on npm or github repository",
 	"version": "0.5.0",
 	"publisher": "MainaWycliffe",
 	"engines": {
