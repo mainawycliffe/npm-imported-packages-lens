@@ -15,7 +15,7 @@ export function determinePackageNameForNPM(importPath: string): string {
   if (!importPath) {
     return "";
   }
-  const cleanImportPath = importPath.replace(/'/g, "").trim();
+  const cleanImportPath = importPath.replace(/'/g, "").replace(/"/g, "").trim();
   // local imports, not an npm package
   if (
     cleanImportPath.startsWith("/") ||
@@ -52,7 +52,7 @@ export function constructPackageNameFromAstNode(
   const line = document.positionAt(node.getStart());
   const text = document.lineAt(line.line);
   const packageName = determinePackageNameForNPM(
-    importPath[0].replace(/'/g, "").trim()
+    importPath[0].replace(/'/g, "").replace(/"/g, "").trim()
   );
   return {
     importLineText: text,
