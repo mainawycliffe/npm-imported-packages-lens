@@ -52,7 +52,7 @@ export function constructPackageNameFromAstNode(
   const line = document.positionAt(node.getStart());
   const text = document.lineAt(line.line);
   const packageName = determinePackageNameForNPM(
-    importPath[0].replace(/'/g, "").replace(/"/g, "").trim()
+    importPath[0]?.replace(/'/g, "")?.replace(/"/g, "").trim()
   );
   return {
     importLineText: text,
