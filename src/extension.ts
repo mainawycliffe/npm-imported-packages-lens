@@ -2,7 +2,8 @@ import * as vscode from "vscode";
 import got from "got";
 import { tsquery } from "@phenomnomnominal/tsquery";
 import { SyntaxKind } from "typescript";
-import ts from "typescript";
+import { AST } from "eslint";
+import ts = require("typescript");
 
 export async function fetchPackageInfoFromNPM(packageName: string) {
   const res = await got.get(`https://registry.npmjs.com/${packageName}/latest`);
