@@ -2,7 +2,6 @@ import * as vscode from "vscode";
 import got from "got";
 import { tsquery } from "@phenomnomnominal/tsquery";
 import { SyntaxKind } from "typescript";
-import { AST } from "eslint";
 import ts = require("typescript");
 
 export async function fetchPackageInfoFromNPM(packageName: string) {
