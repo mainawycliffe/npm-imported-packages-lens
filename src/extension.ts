@@ -90,6 +90,12 @@ export function activate(context: vscode.ExtensionContext) {
     ["typescript", "typescriptreact", "javascript", "javascriptreact"],
     {
       provideCodeLenses(document, token) {
+        // This is an option that can be enabled/disabled in the settings.
+        const configurations =
+          vscode.workspace.getConfiguration("npmPackageLinks");
+        if (!configurations.get("useCodeLens")) {
+          return;
+        }
         const ast = tsquery.ast(document.getText());
         const nodes = tsquery(ast, "ImportDeclaration");
         return (
