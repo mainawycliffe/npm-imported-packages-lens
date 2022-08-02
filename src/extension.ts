@@ -107,6 +107,69 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  let regHoverProviderDisposable = vscode.languages.registerHoverProvider(
+    ["typescript", "typescriptreact", "javascript", "javascriptreact"],
+    {
+      async provideHover(document, position, token) {
+        const nodes = tsquery.ast(document.getText());
+        const importNodes = tsquery(nodes, `ImportDeclaration`);
+        const currentPositionNode = importNodes.filter((node) => {
+          const startOfLine = document.positionAt(node.getStart());
+          const endOfLine = document.positionAt(node.getEnd());
+          if (
+            startOfLine.line <= position.line &&
+            position.line <= endOfLine.line
+          ) {
+            return true;
+          }
+          return false;
+        });
+
+        // should always be a node of 1
+        if (currentPositionNode.length !== 1) {
+          return null;
+        }
+        const currentPositionNodeFirst = currentPositionNode[0];
+        const npmPackageInfo = constructPackageNameFromAstNode(
+          currentPositionNodeFirst,
+          document
+        );
+        if (npmPackageInfo.packageName === "") {
+          return null;
+        }
+        try {
+          // fetch info about package from npm
+          const packageDetails = await fetchPackageInfoFromNPM(
+            npmPackageInfo.packageName
+          );
+
+          const gitRepositoryURL = (packageDetails.repository.url as string)
+            .replace("git+", "")
+            .replace(".git", "");
+
+          const docsHomePageURL = (packageDetails.homepage as string).replace(
+            "git+",
+            ""
+          );
+
+          const hoverContent = new vscode.MarkdownString(
+            `**NPM Package Links for ${npmPackageInfo.packageName}**
+
+[NPM](https://npmjs.com/${npmPackageInfo.packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})`,
+            true
+          );
+
+          hoverContent.isTrusted = true;
+
+          return new vscode.Hover(hoverContent);
+        } catch (e) {
+          console.error(e);
+          return null;
+        }
+      },
+    }
+  );
+
   let regCommandDisposable = vscode.commands.registerCommand(
     "openPackage",
     async (...args: [string, "npm" | "github" | "homepage"]) => {
@@ -144,6 +207,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
+    regHoverProviderDisposable,
     regCodeLensProviderDisposable,
     regCommandDisposable
   );
