@@ -1,12 +1,20 @@
 import * as vscode from "vscode";
-import got from "got";
+import * as got from "got";
 import { tsquery } from "@phenomnomnominal/tsquery";
 import { SyntaxKind } from "typescript";
 import ts = require("typescript");
 
 export async function fetchPackageInfoFromNPM(packageName: string) {
-  const res = await got.get(`https://registry.npmjs.com/${packageName}/latest`);
-  return JSON.parse(res.body);
+  const res = await got.got.get(
+    `https://registry.npmjs.com/${packageName}/latest`
+  );
+  if (res.statusCode === 200) {
+    return JSON.parse(res.body);
+  }
+  if (res.statusCode === 404) {
+    return undefined;
+  }
+  throw new Error(`Failed to fetch package info for ${packageName}`);
 }
 
 export function determinePackageNameForNPM(importPath: string): string {
@@ -149,6 +157,10 @@ export function activate(context: vscode.ExtensionContext) {
             npmPackageInfo.packageName
           );
 
+          if (!packageDetails) {
+            return null;
+          }
+
           const gitRepositoryURL = (packageDetails.repository.url as string)
             .replace("git+", "")
             .replace(".git", "");
@@ -189,6 +201,10 @@ export function activate(context: vscode.ExtensionContext) {
 
       if (destination !== "npm") {
         const packageDetails = await fetchPackageInfoFromNPM(packageName);
+
+        if (!packageDetails) {
+          return;
+        }
 
         if (destination === "github") {
           const repoURL = (packageDetails.repository.url as string)
