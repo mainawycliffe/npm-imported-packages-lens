@@ -1,10 +1,16 @@
-# NPM Imported Packages Lens
+# NPM Imported Package Links
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
 [![](https://vsmarketplacebadge.apphb.com/installs/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
 [![Publish](https://github.com/mainawycliffe/npm-imported-packages-lens/actions/workflows/publish.yml/badge.svg)](https://github.com/mainawycliffe/npm-imported-packages-lens/actions/workflows/publish.yml)
 
-Provides a codelens link to view packages imported in javascript and typescript files on npm or on github.
+Displays links to NPM, Git Repo (GitHub/GitLab, etc.) and Homepage for an
+imported packages in javascript and typescript files on hover.
+
+## How it works
+
+Just hover on an imported npm package and wait as the package links are loaded,
+as shown below 🤯🤯🤯🤯.
 
 !["Screen shot for Open Imported Packages on NPM"](./screenshots/demo.gif)
 
