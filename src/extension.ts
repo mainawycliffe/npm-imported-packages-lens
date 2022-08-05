@@ -173,7 +173,7 @@ export function activate(context: vscode.ExtensionContext) {
           const hoverContent = new vscode.MarkdownString(
             `**NPM Package Links for ${npmPackageInfo.packageName}**
 
-[NPM](https://npmjs.com/${npmPackageInfo.packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})`,
+[NPM](https://npmjs.com/package/${npmPackageInfo.packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})`,
             true
           );
 
