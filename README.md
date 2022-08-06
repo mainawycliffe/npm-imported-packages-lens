@@ -1,4 +1,4 @@
-# NPM Imported Package Links
+# NPM Imported Package Links - a VS Code Extension
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
 [![](https://vsmarketplacebadge.apphb.com/installs/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
