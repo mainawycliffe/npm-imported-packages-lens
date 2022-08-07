@@ -8,6 +8,22 @@ A Visual Studio extension that displays links to NPM, Git Repo (GitHub/GitLab,
 etc.) and Homepage for an imported package in javascript and typescript files
 on hover.
 
+## Features
+
+- Link to NPM
+- Link to Git Remote Repository (GitHub, GitLab, BitBucket, etc.)
+- Link to Homepage (Docs Site) - (Data from NPM - Homepage Settings)
+- Supports Javascript and Typescript (JSX/TSX variants as well)
+- ES Modules imports Support
+
+## Roadmap
+
+- Supports package.json
+- Support version checks on package.json
+- Support for frameworks that don't use Typescript or Javascript files i.e. Vue,
+  Svelte, Astro, etc.
+- Support CommonJS Modules
+
 ## Why
 
 I created this extension to help developers get to important links for a package
