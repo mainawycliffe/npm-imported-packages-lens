@@ -18,7 +18,8 @@
 		"onLanguage:typescript",
 		"onLanguage:javascript",
 		"onLanguage:typescriptreact",
-		"onLanguage:javascriptreact"
+		"onLanguage:javascriptreact",
+		"onLanguage:json"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
