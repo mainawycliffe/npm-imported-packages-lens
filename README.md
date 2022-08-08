@@ -15,10 +15,10 @@ on hover.
 - Link to Homepage (Docs Site) - (Data from NPM - Homepage Settings)
 - Supports Javascript and Typescript (JSX/TSX variants as well)
 - ES Modules imports Support
+- Supports package.json
 
 ## Roadmap
 
-- Supports package.json
 - Support version checks on package.json
 - Support for frameworks that don't use Typescript or Javascript files i.e. Vue,
   Svelte, Astro, etc.
