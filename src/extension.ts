@@ -88,6 +88,11 @@ export function buildCodeLens(
       command: "openPackage",
       arguments: [packageName, "homepage"],
     }),
+    new vscode.CodeLens(codeLensRange, {
+      title: "StackOverflow",
+      command: "openPackage",
+      arguments: [packageName, "stackoverflow"],
+    }),
   ];
 }
 
@@ -259,7 +264,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   let regCommandDisposable = vscode.commands.registerCommand(
     "openPackage",
-    async (...args: [string, "npm" | "github" | "homepage"]) => {
+    async (
+      ...args: [string, "npm" | "github" | "homepage" | "stackoverflow"]
+    ) => {
       const [packageName, destination] = args;
       if (destination === "npm") {
         const link = vscode.Uri.parse(
@@ -280,6 +287,10 @@ export function activate(context: vscode.ExtensionContext) {
             .replace("git+", "")
             .replace(".git", "");
           const link = vscode.Uri.parse(repoURL);
+          await vscode.commands.executeCommand("vscode.open", link);
+        } else if (destination === "stackoverflow") {
+          const soURL = `https://stackoverflow.com/search?q=${packageName}`;
+          const link = vscode.Uri.parse(soURL);
           await vscode.commands.executeCommand("vscode.open", link);
         } else {
           const homeURL = (packageDetails.homepage as string).replace(
