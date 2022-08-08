@@ -2,7 +2,7 @@
 	"name": "view-package-on-npm",
 	"displayName": "NPM Imported Package Links",
 	"description": "A Visual Studio extension that displays links to NPM, Git Repo (GitHub/GitLab, etc.) and Homepage for an imported package in javascript and typescript files on hover",
-	"version": "0.6.4",
+	"version": "0.7.0",
 	"publisher": "MainaWycliffe",
 	"engines": {
 		"vscode": "^1.69.0"
