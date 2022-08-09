@@ -36,17 +36,7 @@
 			{
 				"language": "typescriptreact"
 			}
-		],
-		"configuration": {
-			"title": "NPM Imported Packages Lens",
-			"properties": {
-				"npmPackageLinks.useCodeLens": {
-					"type": "boolean",
-					"default": false,
-					"description": "Use CodeLens to display links to imported npm packages in TS/JS Files"
-				}
-			}
-		}
+		]
 	},
 	"scripts": {
 		"compile": "webpack",
