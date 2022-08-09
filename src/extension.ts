@@ -3,6 +3,7 @@ import { tsquery } from "@phenomnomnominal/tsquery";
 import fetchPackageInfoFromNPM from "./utils/fetchPackageInfoFromNPM";
 import constructPackageNameFromAstNode from "./utils/constructPackageNameFromAstNode";
 import buildCodeLens from "./utils/buildCodeLens";
+import composeHoverMarkdownContent from "./utils/composeHoverMarkdownContent";
 
 export function activate(context: vscode.ExtensionContext) {
   context.globalState.get<any>(context.extension.id, {});
@@ -64,39 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (npmPackageInfo.packageName === "") {
           return null;
         }
-        try {
-          // fetch info about package from npm
-          const packageDetails = await fetchPackageInfoFromNPM(
-            npmPackageInfo.packageName
-          );
-
-          if (!packageDetails) {
-            return null;
-          }
-
-          const gitRepositoryURL = (packageDetails.repository.url as string)
-            .replace("git+", "")
-            .replace(".git", "");
-
-          const docsHomePageURL = (packageDetails.homepage as string).replace(
-            "git+",
-            ""
-          );
-
-          const hoverContent = new vscode.MarkdownString(
-            `**NPM Package Links for ${npmPackageInfo.packageName}**
-
-[NPM](https://npmjs.com/package/${npmPackageInfo.packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})`,
-            true
-          );
-
-          hoverContent.isTrusted = true;
-
-          return new vscode.Hover(hoverContent);
-        } catch (e) {
-          console.error(e);
-          return null;
-        }
+        return composeHoverMarkdownContent(npmPackageInfo.packageName);
       },
     }
   );
@@ -129,43 +98,11 @@ export function activate(context: vscode.ExtensionContext) {
           }
           return false;
         });
-
         if (hoveredTextInDependencyList.length !== 1) {
           return null;
         }
-
         const [packageName] = hoveredTextInDependencyList[0];
-
-        try {
-          // fetch info about package from npm
-          const packageDetails = await fetchPackageInfoFromNPM(packageName);
-
-          if (!packageDetails) {
-            return null;
-          }
-
-          const gitRepositoryURL = (packageDetails.repository.url as string)
-            .replace("git+", "")
-            .replace(".git", "");
-
-          const docsHomePageURL = (packageDetails.homepage as string).replace(
-            "git+",
-            ""
-          );
-
-          const hoverContent = new vscode.MarkdownString(
-            `**NPM Package Links for ${packageName}**
-
-[NPM](https://npmjs.com/package/${packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})`
-          );
-
-          hoverContent.isTrusted = true;
-
-          return new vscode.Hover(hoverContent);
-        } catch (e) {
-          console.error(e);
-          return null;
-        }
+        return composeHoverMarkdownContent(packageName);
       },
     }
   );
