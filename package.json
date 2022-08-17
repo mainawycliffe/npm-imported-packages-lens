@@ -55,7 +55,6 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^7.2.0",
-		"@types/mocha": "^9.1.1",
 		"@types/node": "16.x",
 		"@types/vscode": "^1.69.0",
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
@@ -66,7 +65,6 @@
 		"eslint-config-prettier": "^8.5.0",
 		"esquery": "^1.4.0",
 		"glob": "^8.0.3",
-		"mocha": "^10.0.0",
 		"prettier": "^2.7.1",
 		"ts-loader": "^9.3.1",
 		"typescript": "^4.7.4",
