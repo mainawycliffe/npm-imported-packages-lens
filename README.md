@@ -20,6 +20,7 @@ as shown below 🤯🤯🤯🤯.
 - Link to NPM
 - Link to Git Remote Repository (GitHub, GitLab, BitBucket, etc.)
 - Link to Homepage (Docs Site) - (Data from NPM - Homepage Settings)
+- Link to Git Repository to view existing issues or report a bug
 - Supports Javascript and Typescript (JSX/TSX variants as well)
 - ES Modules imports Support
 - Supports package.json
