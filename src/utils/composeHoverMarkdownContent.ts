@@ -19,6 +19,8 @@ export default async function composeHoverMarkdownContent(packageName: string) {
       ""
     );
 
+    const reportBugURL = packageDetails.bugs.url;
+
     const packageDescription = packageDetails.description;
 
     const hoverContent = new vscode.MarkdownString(
@@ -26,7 +28,17 @@ export default async function composeHoverMarkdownContent(packageName: string) {
 
 ${packageDescription ? packageDescription : ""}
 
-[NPM](https://npmjs.com/package/${packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})`,
+[NPM](https://npmjs.com/package/${packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})
+${
+  reportBugURL
+    ? `
+
+[View Issues/Report Bug](${reportBugURL})
+
+`
+    : ""
+}
+`,
       true
     );
 
