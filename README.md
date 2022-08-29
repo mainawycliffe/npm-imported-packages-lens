@@ -38,3 +38,7 @@ I created this extension to help developers get to important links for a package
 all in one place. Want to learn more about a package being utilized in your
 codebase, this extension will help you do that efficiently, no need to go
 through Google.
+
+## Contributing
+
+PRs and suggestions are welcome
