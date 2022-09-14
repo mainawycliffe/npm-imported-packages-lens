@@ -1,21 +1,40 @@
 import * as vscode from "vscode";
 import composeHoverMarkdownContent from "./composeHoverMarkdownContent";
+import { z } from "zod";
+
+// we want to validate that the package.json is valid or has the fields we want
+// i.e. peerDependencies, dependencies, devDependencies
+const partialPackageJSONSchema = z.object(
+  {
+    dependencies: z.optional(z.record(z.string())),
+    devDependencies: z.optional(z.record(z.string())),
+    peerDependencies: z.optional(z.record(z.string())),
+  },
+  {
+    description:
+      "Partial package.json schema with dependencies, devDependencies and peerDependencies",
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    invalid_type_error:
+      "Invalid package.json, the dependencies, devDependencies and peerDependencies should be a key-value object",
+  }
+);
+
+type PartialPackageJSON = z.infer<typeof partialPackageJSONSchema>;
 
 const provideHoverForPackageJSON: vscode.HoverProvider["provideHover"] = (
   document,
   position,
   token
 ) => {
-  // todo: add some validations here using zod
-  const packageJSONContent = JSON.parse(document.getText());
+  const packageJSONContent: PartialPackageJSON = partialPackageJSONSchema.parse(
+    JSON.parse(document.getText())
+  );
   const hoveredText = document.lineAt(position).text.trim().replace(",", "");
-
-  const allDependenciesInPackageJSON = {
+  const allDependenciesInPackageJSON: Record<string, string> = {
     ...packageJSONContent.dependencies,
     ...packageJSONContent.devDependencies,
     ...packageJSONContent.peerDependencies,
-  } as Record<string, string>;
-
+  };
   // if the hovered text is a dependency in the package.json file
   const hoveredTextInDependencyList = Object.entries(
     allDependenciesInPackageJSON

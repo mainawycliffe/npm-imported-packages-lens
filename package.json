@@ -78,6 +78,7 @@
 	},
 	"dependencies": {
 		"@phenomnomnominal/tsquery": "^5.0.0",
-		"got": "^12.1.0"
+		"got": "^12.1.0",
+		"zod": "^3.19.1"
 	}
 }
