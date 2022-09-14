@@ -6,6 +6,7 @@ const provideHoverForPackageJSON: vscode.HoverProvider["provideHover"] = (
   position,
   token
 ) => {
+  // todo: add some validations here using zod
   const packageJSONContent = JSON.parse(document.getText());
   const hoveredText = document.lineAt(position).text.trim().replace(",", "");
 

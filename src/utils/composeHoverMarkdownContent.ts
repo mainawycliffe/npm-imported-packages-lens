@@ -1,7 +1,10 @@
 import * as vscode from "vscode";
 import fetchPackageInfoFromNPM from "./fetchPackageInfoFromNPM";
 
-export default async function composeHoverMarkdownContent(packageName: string) {
+export default async function composeHoverMarkdownContent(
+  packageName: string,
+  range?: vscode.Range
+) {
   try {
     // fetch info about package from npm
     const packageDetails = await fetchPackageInfoFromNPM(packageName);
@@ -33,7 +36,7 @@ ${
   reportBugURL
     ? `
 
-[View Issues/Report Bug](${reportBugURL})
+[View issues/Report bug](${reportBugURL})
 
 `
     : ""
@@ -44,7 +47,7 @@ ${
 
     hoverContent.isTrusted = true;
 
-    return new vscode.Hover(hoverContent);
+    return new vscode.Hover(hoverContent, range);
   } catch (e) {
     console.error(e);
     return null;

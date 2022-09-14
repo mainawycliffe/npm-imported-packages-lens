@@ -24,14 +24,14 @@ const provideHoverForESImports: vscode.HoverProvider["provideHover"] = (
     return null;
   }
   const currentPositionNodeFirst = currentPositionNode[0];
-  const npmPackageInfo = constructPackageNameFromAstNode(
+  const { packageName, range: packageRange } = constructPackageNameFromAstNode(
     currentPositionNodeFirst,
     document
   );
-  if (npmPackageInfo.packageName === "") {
+  if (packageName === "") {
     return null;
   }
-  return composeHoverMarkdownContent(npmPackageInfo.packageName);
+  return composeHoverMarkdownContent(packageName, packageRange);
 };
 
 export default provideHoverForESImports;
