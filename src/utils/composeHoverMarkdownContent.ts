@@ -8,24 +8,18 @@ export default async function composeHoverMarkdownContent(
   try {
     // fetch info about package from npm
     const packageDetails = await fetchPackageInfoFromNPM(packageName);
-
     if (!packageDetails) {
       return null;
     }
-
-    const gitRepositoryURL = (packageDetails.repository.url as string)
+    const gitRepositoryURL = packageDetails.repository?.url
       .replace("git+", "")
       .replace(".git", "");
-
     const docsHomePageURL = (packageDetails.homepage as string).replace(
       "git+",
       ""
     );
-
-    const reportBugURL = packageDetails.bugs.url;
-
+    const reportBugURL = packageDetails.bugs?.url;
     const packageDescription = packageDetails.description;
-
     const hoverContent = new vscode.MarkdownString(
       `**NPM Package Links for ${packageName}**
 
@@ -44,9 +38,7 @@ ${
 `,
       true
     );
-
     hoverContent.isTrusted = true;
-
     return new vscode.Hover(hoverContent, range);
   } catch (e) {
     console.error(e);
