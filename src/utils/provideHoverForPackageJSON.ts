@@ -19,14 +19,12 @@ const partialPackageJSONSchema = z.object(
   }
 );
 
-type PartialPackageJSON = z.infer<typeof partialPackageJSONSchema>;
-
 const provideHoverForPackageJSON: vscode.HoverProvider["provideHover"] = (
   document,
   position,
   token
 ) => {
-  const packageJSONContent: PartialPackageJSON = partialPackageJSONSchema.parse(
+  const packageJSONContent = partialPackageJSONSchema.parse(
     JSON.parse(document.getText())
   );
   const hoveredText = document.lineAt(position).text.trim().replace(",", "");
