@@ -4,6 +4,8 @@
 [![](https://vsmarketplacebadge.apphb.com/installs/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
 [![Publish](https://github.com/mainawycliffe/npm-imported-packages-lens/actions/workflows/publish.yml/badge.svg)](https://github.com/mainawycliffe/npm-imported-packages-lens/actions/workflows/publish.yml)
 
+!["Screenshot"](./screenshots/screenshot.png)
+
 A Visual Studio extension that displays links to NPM, Git Repo (GitHub/GitLab,
 etc.) and Homepage for an imported package in javascript and typescript files
 on hover.
