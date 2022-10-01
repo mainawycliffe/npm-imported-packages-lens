@@ -1,6 +1,20 @@
 import * as vscode from "vscode";
 import fetchPackageInfoFromNPM from "./fetchPackageInfoFromNPM";
 
+function determineRepositoryNameFromGitURL(gitURL: string): string {
+  if (gitURL.toLowerCase().includes("gitlab")) {
+    return "GitLab";
+  }
+  if (gitURL.toLowerCase().includes("bitbucket")) {
+    return "Bitbucket";
+  }
+  if (gitURL.toLowerCase().includes("sourceforge")) {
+    return "SourceForge";
+  }
+  // default to GitHub
+  return "GitHub";
+}
+
 export default async function composeHoverMarkdownContent(
   packageName: string,
   range?: vscode.Range
@@ -14,6 +28,9 @@ export default async function composeHoverMarkdownContent(
     const gitRepositoryURL = packageDetails.repository?.url
       .replace("git+", "")
       .replace(".git", "");
+    const repositoryName = determineRepositoryNameFromGitURL(
+      gitRepositoryURL ?? ""
+    );
     const docsHomePageURL = (packageDetails.homepage as string).replace(
       "git+",
       ""
@@ -25,7 +42,7 @@ export default async function composeHoverMarkdownContent(
 
 ${packageDescription ? packageDescription : ""}
 
-[NPM](https://npmjs.com/package/${packageName}) | [GitHub](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})
+[NPM](https://npmjs.com/package/${packageName}) | [${repositoryName}](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})
 
 ${reportBugURL ? `[View issues/Report bug](${reportBugURL})` : ""}
 `,
