@@ -10,6 +10,8 @@ A Visual Studio extension that displays links to NPM, Git Repo (GitHub/GitLab,
 etc.) and Homepage for an imported package in javascript and typescript files
 on hover.
 
+## 🌟🌟 The Ultimate tool for onboarding developers
+
 ## How it works
 
 Just hover on an imported npm package and wait as the package links are loaded,
