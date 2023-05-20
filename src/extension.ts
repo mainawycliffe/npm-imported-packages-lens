@@ -3,14 +3,14 @@ import provideHoverForPackageJSON from "./utils/provideHoverForPackageJSON";
 import provideHoverForESImports from "./utils/provideHoverForESImports";
 
 export function activate(context: vscode.ExtensionContext) {
-  let regHoverProviderDisposable = vscode.languages.registerHoverProvider(
+  const regHoverProviderDisposable = vscode.languages.registerHoverProvider(
     ["typescript", "typescriptreact", "javascript", "javascriptreact"],
     {
       provideHover: provideHoverForESImports,
     }
   );
 
-  let regHoverForPackageJSON = vscode.languages.registerHoverProvider(
+  const regHoverForPackageJSON = vscode.languages.registerHoverProvider(
     {
       pattern: "**/package.json",
     },

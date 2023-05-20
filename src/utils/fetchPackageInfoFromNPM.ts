@@ -35,7 +35,6 @@ export default async function fetchPackageInfoFromNPM(
   const res = await got.got.get(
     `https://registry.npmjs.com/${packageName}/latest`
   );
-  console.log(res.body);
   if (res.statusCode === 200) {
     return registryPackageAPIResponseSchema.parse(JSON.parse(res.body));
   }
