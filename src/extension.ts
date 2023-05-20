@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import provideHoverForPackageJSON from "./utils/provideHoverForPackageJSON";
 import provideHoverForESImports from "./utils/provideHoverForESImports";
-import { stringifyDescriptor } from "@originjs/vue-sfc-ast-parser";
 import { provideHoverForVue } from "./utils/provideHoverForVue";
 
 export function activate(context: vscode.ExtensionContext) {
