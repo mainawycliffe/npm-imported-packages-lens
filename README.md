@@ -1,20 +1,22 @@
 # NPM Imported Package Links - a VS Code Extension
 
-[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
-[![](https://vsmarketplacebadge.apphb.com/installs/MainaWycliffe.view-package-on-npm.svg)](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
-[![Publish](https://github.com/mainawycliffe/npm-imported-packages-lens/actions/workflows/publish.yml/badge.svg)](https://github.com/mainawycliffe/npm-imported-packages-lens/actions/workflows/publish.yml)
+[Download from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
+
+## The Ultimate tool for Developers
+
+This is the ultimate onboarding VS Code extension. When reading code, we
+sometimes come across JS/TS packages that are unfamiliar, with this extension,
+just hover on the imported package, and you will get information from NPM, about
+the current version of the extension being used, with links to the NPM
+package,Homepage and Git Repository.
 
 !["Screenshot"](./screenshots/screenshot.png)
 
-A Visual Studio extension that displays links to NPM, Git Repo (GitHub/GitLab,
-etc.) and Homepage for an imported package in javascript and typescript files
-on hover.
-
-## 🌟🌟 The Ultimate tool for onboarding developers
+> We are open to suggestions and PRs, feel free to open an issue or a PR.
 
 ## How it works
 
-Just hover on an imported npm package and wait as the package links are loaded,
+Hover on an imported npm package and wait as the package links are loaded,
 as shown below 🤯🤯🤯🤯.
 
 !["Screen shot for Open Imported Packages on NPM"](./screenshots/demo.gif)
@@ -28,6 +30,7 @@ as shown below 🤯🤯🤯🤯.
 - Supports Javascript and Typescript (JSX/TSX variants as well)
 - ES Modules imports Support
 - Supports package.json
+- Version and License information
 
 ## Roadmap
 
