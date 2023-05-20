@@ -1,6 +1,8 @@
 import * as vscode from "vscode";
 import provideHoverForPackageJSON from "./utils/provideHoverForPackageJSON";
 import provideHoverForESImports from "./utils/provideHoverForESImports";
+import { stringifyDescriptor } from "@originjs/vue-sfc-ast-parser";
+import { provideHoverForVue } from "./utils/provideHoverForVue";
 
 export function activate(context: vscode.ExtensionContext) {
   const regHoverProviderDisposable = vscode.languages.registerHoverProvider(
@@ -19,9 +21,14 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const regHoverForVue = vscode.languages.registerHoverProvider(["vue"], {
+    provideHover: provideHoverForVue,
+  });
+
   context.subscriptions.push(
     regHoverProviderDisposable,
-    regHoverForPackageJSON
+    regHoverForPackageJSON,
+    regHoverForVue
   );
 }
 

@@ -19,7 +19,8 @@
 		"onLanguage:javascript",
 		"onLanguage:typescriptreact",
 		"onLanguage:javascriptreact",
-		"onLanguage:json"
+		"onLanguage:json",
+		"onLanguage:vue"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {

@@ -31,6 +31,7 @@ as shown below 🤯🤯🤯🤯.
 - ES Modules imports Support
 - Supports package.json
 - Version and License information
+- Experimental Vue Support (Other Frameworks coming soon)
 
 ## Roadmap
 
