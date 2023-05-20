@@ -5,7 +5,9 @@ const registryPackageAPIResponseSchema = z.object(
   {
     name: z.string(),
     homepage: z.optional(z.string()),
-    description: z.string(),
+    description: z.string().optional().nullable(),
+    version: z.string(),
+    license: z.string().optional().nullable(),
     repository: z.optional(
       z.object({
         url: z.string(),
@@ -33,6 +35,7 @@ export default async function fetchPackageInfoFromNPM(
   const res = await got.got.get(
     `https://registry.npmjs.com/${packageName}/latest`
   );
+  console.log(res.body);
   if (res.statusCode === 200) {
     return registryPackageAPIResponseSchema.parse(JSON.parse(res.body));
   }

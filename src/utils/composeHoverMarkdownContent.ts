@@ -42,6 +42,10 @@ export default async function composeHoverMarkdownContent(
 
 ${packageDescription ? packageDescription : ""}
 
+**Version**: ${packageDetails.version}
+
+**License**: ${packageDetails.license}
+
 [NPM](https://npmjs.com/package/${packageName}) | [${repositoryName}](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})
 
 ${reportBugURL ? `[View issues/Report bug](${reportBugURL})` : ""}
