@@ -5,7 +5,7 @@
 	"version": "0.14.1",
 	"publisher": "MainaWycliffe",
 	"engines": {
-		"vscode": "^1.69.0"
+		"vscode": "^1.78.0"
 	},
 	"repository": {
 		"url": "https://github.com/mainawycliffe/view-package-on-npm"
