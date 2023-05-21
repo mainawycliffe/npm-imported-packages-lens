@@ -43,6 +43,9 @@
 			},
 			{
 				"language": "vue"
+			},
+			{
+				"language": "astro"
 			}
 		]
 	},
