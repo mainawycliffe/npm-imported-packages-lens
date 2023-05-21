@@ -20,7 +20,8 @@
 		"onLanguage:typescriptreact",
 		"onLanguage:javascriptreact",
 		"onLanguage:json",
-		"onLanguage:vue"
+		"onLanguage:vue",
+		"onLanguage:astro"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -36,6 +37,12 @@
 			},
 			{
 				"language": "typescriptreact"
+			},
+			{
+				"language": "json"
+			},
+			{
+				"language": "vue"
 			}
 		]
 	},
