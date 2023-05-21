@@ -3,6 +3,7 @@ import provideHoverForPackageJSON from "./utils/provideHoverForPackageJSON";
 import provideHoverForESImports from "./utils/provideHoverForESImports";
 import { provideHoverForVue } from "./utils/provideHoverForVue";
 import { provideHoverForAstro } from "./utils/provideHoverForAstro";
+import { provideHoverForSvelte } from "./utils/provideHoverForSvelte";
 
 export function activate(context: vscode.ExtensionContext) {
   const regHoverProviderDisposable = vscode.languages.registerHoverProvider(
@@ -29,11 +30,16 @@ export function activate(context: vscode.ExtensionContext) {
     provideHover: provideHoverForAstro,
   });
 
+  const regHoverForSvelte = vscode.languages.registerHoverProvider(["svelte"], {
+    provideHover: provideHoverForSvelte,
+  });
+
   context.subscriptions.push(
     regHoverProviderDisposable,
     regHoverForPackageJSON,
     regHoverForVue,
-    regHoverForAstro
+    regHoverForAstro,
+    regHoverForSvelte
   );
 }
 

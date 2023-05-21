@@ -31,14 +31,21 @@ as shown below 🤯🤯🤯🤯.
 - ES Modules imports Support
 - Supports package.json
 - Version and License information
-- Experimental Vue, Astro Support (Other Frameworks coming soon)
+- Experimental Support for Vue, Astro, and Svelte (Suggestions and PRs are
+  welcome)
 
 ## Roadmap
 
-- Support version checks on package.json
-- Support for frameworks that don't use Typescript or Javascript files i.e. Vue,
-  Svelte, Astro, etc.
-- Support CommonJS Modules
+| Feature                                | Status       |
+| -------------------------------------- | ------------ |
+| Support version checks on package.json | ✅           |
+| Support for ES Modules imports         | ✅           |
+| Support for Typescript/Javascript      | ✅           |
+| Support for JSX/TSX                    | ✅           |
+| Support for Vue                        | Experimental |
+| Support for Astro                      | Experimental |
+| Support for Svelte                     | Experimental |
+| Support CommonJS Modules               | 🚧           |
 
 ## Why
 

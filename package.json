@@ -21,7 +21,8 @@
 		"onLanguage:javascriptreact",
 		"onLanguage:json",
 		"onLanguage:vue",
-		"onLanguage:astro"
+		"onLanguage:astro",
+		"onLanguage:svelte"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -46,6 +47,9 @@
 			},
 			{
 				"language": "astro"
+			},
+			{
+				"language": "svelte"
 			}
 		]
 	},
