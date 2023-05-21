@@ -3,11 +3,41 @@ import * as vscode from "vscode";
 import constructPackageNameFromAstNode from "./constructPackageNameFromAstNode";
 import composeHoverMarkdownContent from "./composeHoverMarkdownContent";
 
+export function isInsideScriptTags(
+  document: vscode.TextDocument,
+  position: vscode.Position
+) {
+  let scriptStart: number = 0,
+    scriptEnd: number = 0;
+  for (let i = 0; i < document.lineCount; i++) {
+    const line = document.lineAt(i);
+    if (line.text.includes("<script")) {
+      scriptStart = line.lineNumber;
+      break;
+    }
+  }
+  for (let i = 0; i < document.lineCount; i++) {
+    const line = document.lineAt(i);
+    if (line.text.includes("</script>")) {
+      scriptEnd = line.lineNumber;
+      break;
+    }
+  }
+  const positionLine = position.line;
+  if (positionLine > scriptStart && positionLine < scriptEnd) {
+    return true;
+  }
+  return false;
+}
+
 export const provideHoverForVue: vscode.HoverProvider["provideHover"] = (
   document,
   position,
   token
 ) => {
+  if (!isInsideScriptTags(document, position)) {
+    return null;
+  }
   // tsquery seems to work with vue files, which is great considering that vue
   // files are not valid ts files. More testing needed, here
   const nodes = tsquery.ast(document.getText());
