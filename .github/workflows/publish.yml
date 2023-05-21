@@ -12,12 +12,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.4.0
       - name: Install Dependencies
-        run: pnpm i
-      - run: pnpm package
+        run: yarn install
+
+      - run: yarn package
       # - name: Publish to Open VSX Registry
       #   uses: HaaLeo/publish-vscode-extension@v1
       #   with:
