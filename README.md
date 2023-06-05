@@ -1,4 +1,8 @@
-# NPM Imported Package Links - a VS Code Extension
+<h1 align="center"> NPM Imported Package Links - The Ultimate Onboarding Extension for Developers</h1>
+
+<p align="center">
+  <img src="./images/npm-imported-packages-lens.jpg" height="70" />
+</p>
 
 [Download from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
 
