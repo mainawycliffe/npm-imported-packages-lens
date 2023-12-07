@@ -98,5 +98,6 @@
     "@phenomnomnominal/tsquery": "^5.0.1",
     "got": "^12.6.0",
     "zod": "^3.21.4"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
