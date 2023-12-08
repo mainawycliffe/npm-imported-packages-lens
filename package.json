@@ -72,6 +72,7 @@
     "@babel/preset-typescript": "^7.23.3",
     "@release-it/conventional-changelog": "^8.0.1",
     "@types/glob": "^8.1.0",
+    "@types/got": "^9.6.12",
     "@types/jest": "^29.5.11",
     "@types/node": "~20.10.3",
     "@types/vscode": "^1.84.2",

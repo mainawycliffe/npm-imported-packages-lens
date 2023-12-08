@@ -1,4 +1,4 @@
-import * as got from "got";
+import got from "got";
 import { z } from "zod";
 import determineInstalledPackageVersion from "./determineInstalledPackageVersion";
 
@@ -12,12 +12,12 @@ export const registryPackageAPIResponseSchema = z.object(
     repository: z.optional(
       z.object({
         url: z.string(),
-      })
+      }),
     ),
     bugs: z.optional(
       z.object({
         url: z.string(),
-      })
+      }),
     ),
     dependencies: z.record(z.string()).nullable().optional(),
     devDependencies: z.record(z.string()).nullable().optional(),
@@ -26,7 +26,7 @@ export const registryPackageAPIResponseSchema = z.object(
   {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     invalid_type_error: "Invalid package information from NPM registry",
-  }
+  },
 );
 
 type RegistryPackageAPIResponseType = z.infer<
@@ -34,11 +34,11 @@ type RegistryPackageAPIResponseType = z.infer<
 >;
 
 export default async function fetchPackageInfoFromNPM(
-  packageName: string
+  packageName: string,
 ): Promise<RegistryPackageAPIResponseType | undefined> {
   const packageVersion = await determineInstalledPackageVersion(packageName);
-  const res = await got.got.get(
-    `https://registry.npmjs.com/${packageName}/${packageVersion}`
+  const res = await got.get(
+    `https://registry.npmjs.com/${packageName}/${packageVersion}`,
   );
   if (res.statusCode === 200) {
     return registryPackageAPIResponseSchema.parse(JSON.parse(res.body));
