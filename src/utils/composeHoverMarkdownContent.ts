@@ -48,7 +48,7 @@ export default async function composeHoverMarkdownContent(
 
 ${packageDescription ? packageDescription : ""}
 
-**Version**: ${packageDetails.version} (${latestPackageVersion && latestPackageVersion !== packageDetails.version ? `_**⭐️ Latest version**: ${latestPackageVersion}_` : ""})
+**Version**: ${packageDetails.version} ${latestPackageVersion && latestPackageVersion !== packageDetails.version ? `(_**⭐️ Latest version**: ${latestPackageVersion}_)` : ""}
 
 **License**: ${packageDetails.license}
 
