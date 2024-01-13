@@ -48,3 +48,16 @@ export default async function fetchPackageInfoFromNPM(
   }
   throw new Error(`Failed to fetch package info for ${packageName}`);
 }
+
+export async function fetchLatestPackageVersionFromNPM(
+  packageName: string,
+): Promise<string | undefined> {
+  const res = await got.get(`https://registry.npmjs.com/${packageName}/latest`);
+  if (res.statusCode === 200) {
+    return registryPackageAPIResponseSchema.parse(JSON.parse(res.body)).version;
+  }
+  if (res.statusCode === 404) {
+    return undefined;
+  }
+  throw new Error(`Failed to fetch package info for ${packageName}`);
+}

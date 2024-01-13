@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
-import fetchPackageInfoFromNPM from "./fetchPackageInfoFromNPM";
+import fetchPackageInfoFromNPM, {
+  fetchLatestPackageVersionFromNPM,
+} from "./fetchPackageInfoFromNPM";
 
 function determineRepositoryNameFromGitURL(gitURL: string): string {
   if (gitURL.toLowerCase().includes("gitlab")) {
@@ -25,6 +27,10 @@ export default async function composeHoverMarkdownContent(
     if (!packageDetails) {
       return null;
     }
+    // fetch info about the latest version of the package from npm
+    const latestPackageVersion =
+      await fetchLatestPackageVersionFromNPM(packageName);
+    console.log(latestPackageVersion);
     const gitRepositoryURL = packageDetails.repository?.url
       .replace("git+", "")
       .replace(".git", "");
@@ -42,7 +48,7 @@ export default async function composeHoverMarkdownContent(
 
 ${packageDescription ? packageDescription : ""}
 
-**Version**: ${packageDetails.version}
+**Version**: ${packageDetails.version} (${latestPackageVersion && latestPackageVersion !== packageDetails.version ? `_**⭐️ Latest version**: ${latestPackageVersion}_` : ""})
 
 **License**: ${packageDetails.license}
 
