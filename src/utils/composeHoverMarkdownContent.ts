@@ -17,7 +17,7 @@ function determineRepositoryNameFromGitURL(gitURL: string): string {
 
 export default async function composeHoverMarkdownContent(
   packageName: string,
-  range?: vscode.Range
+  range?: vscode.Range,
 ) {
   try {
     // fetch info about package from npm
@@ -29,12 +29,12 @@ export default async function composeHoverMarkdownContent(
       .replace("git+", "")
       .replace(".git", "");
     const repositoryName = determineRepositoryNameFromGitURL(
-      gitRepositoryURL ?? ""
+      gitRepositoryURL ?? "",
     );
-    const docsHomePageURL = (packageDetails.homepage as string).replace(
-      "git+",
-      ""
-    );
+    const docsHomePageURL =
+      packageDetails.homepage && !packageDetails.homepage.startsWith("git+")
+        ? (packageDetails.homepage as string).replace("git+", "")
+        : undefined;
     const reportBugURL = packageDetails.bugs?.url;
     const packageDescription = packageDetails.description;
     const hoverContent = new vscode.MarkdownString(
@@ -46,11 +46,11 @@ ${packageDescription ? packageDescription : ""}
 
 **License**: ${packageDetails.license}
 
-[NPM](https://npmjs.com/package/${packageName}) | [${repositoryName}](${gitRepositoryURL}) | [Homepage](${docsHomePageURL})
+[NPM](https://npmjs.com/package/${packageName}) | [${repositoryName}](${gitRepositoryURL}) | ${docsHomePageURL ? `[Homepage](${docsHomePageURL}` : ""})
 
 ${reportBugURL ? `[View issues/Report bug](${reportBugURL})` : ""}
 `,
-      true
+      true,
     );
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent, range);
