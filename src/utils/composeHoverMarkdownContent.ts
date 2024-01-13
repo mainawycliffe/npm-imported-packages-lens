@@ -1,7 +1,39 @@
+import { render } from "ejs";
 import * as vscode from "vscode";
 import fetchPackageInfoFromNPM, {
   fetchLatestPackageVersionFromNPM,
 } from "./fetchPackageInfoFromNPM";
+
+/**
+ * EJS template for the hover content, which is rendered with the package details
+ * For more info on EJS, see https://ejs.co/
+ */
+const contentMarkdownTemplate = `
+#### NPM Package Links for <%= packageName %>
+
+<% if(packageDescription) { %>
+<%= packageDescription%>
+<% } %>
+
+---
+
+#### Links
+
+[NPM](https://npmjs.com/package/<%= packageName %>) | [<%= repositoryName %>](<%= gitRepositoryURL %>) | <% if (docsHomePageURL) { %> [Homepage](<%= docsHomePageURL %>) <% } %>
+
+<% if (reportBugURL) { %>
+[View issues/Report bug](<%= reportBugURL %>)
+<% } %>
+
+---
+**Version**: <%= packageDetails.version %>
+
+<% if(latestPackageVersion) { %>
+_**⭐️ Latest version**: <%= latestPackageVersion %>_
+<% } %>
+
+**License**: <%= packageDetails.license %>
+`;
 
 function determineRepositoryNameFromGitURL(gitURL: string): string {
   if (gitURL.toLowerCase().includes("gitlab")) {
@@ -30,7 +62,6 @@ export default async function composeHoverMarkdownContent(
     // fetch info about the latest version of the package from npm
     const latestPackageVersion =
       await fetchLatestPackageVersionFromNPM(packageName);
-    console.log(latestPackageVersion);
     const gitRepositoryURL = packageDetails.repository?.url
       .replace("git+", "")
       .replace(".git", "");
@@ -43,21 +74,17 @@ export default async function composeHoverMarkdownContent(
         : undefined;
     const reportBugURL = packageDetails.bugs?.url;
     const packageDescription = packageDetails.description;
-    const hoverContent = new vscode.MarkdownString(
-      `**NPM Package Links for ${packageName}**
-
-${packageDescription ? packageDescription : ""}
-
-**Version**: ${packageDetails.version} ${latestPackageVersion && latestPackageVersion !== packageDetails.version ? `(_**⭐️ Latest version**: ${latestPackageVersion}_)` : ""}
-
-**License**: ${packageDetails.license}
-
-[NPM](https://npmjs.com/package/${packageName}) | [${repositoryName}](${gitRepositoryURL}) | ${docsHomePageURL ? `[Homepage](${docsHomePageURL}` : ""})
-
-${reportBugURL ? `[View issues/Report bug](${reportBugURL})` : ""}
-`,
-      true,
-    );
+    const str = render(contentMarkdownTemplate, {
+      packageDetails,
+      packageName,
+      packageDescription,
+      latestPackageVersion,
+      repositoryName,
+      gitRepositoryURL,
+      docsHomePageURL,
+      reportBugURL,
+    });
+    const hoverContent = new vscode.MarkdownString(str, true);
     hoverContent.isTrusted = true;
     return new vscode.Hover(hoverContent, range);
   } catch (e) {
