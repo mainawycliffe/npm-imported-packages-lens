@@ -1,7 +1,7 @@
 {
   "name": "view-package-on-npm",
-  "displayName": "NPM Imported Package Links",
-  "description": "A Visual Studio extension that displays links to NPM, Git Repo (GitHub/GitLab, etc.) and Homepage for an imported package in javascript and typescript files on hover",
+  "displayName": "NPM Packages Lookup",
+  "description": "Lookup NPM packages directly from your editor",
   "version": "0.20.2",
   "publisher": "MainaWycliffe",
   "engines": {
@@ -10,7 +10,7 @@
   "repository": {
     "url": "https://github.com/mainawycliffe/view-package-on-npm"
   },
-  "icon": "images/npm-imported-packages-lens.jpg",
+  "icon": "images/npm-package-lookup.jpg",
   "categories": [
     "Other"
   ],

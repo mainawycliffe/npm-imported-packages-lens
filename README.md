@@ -1,7 +1,7 @@
-<h1 align="center"> NPM Imported Package Links - The Ultimate Onboarding Extension for Developers</h1>
+<h1 align="center"> NPM Packages Lookup - The Ultimate Onboarding Extension for Developers</h1>
 
 <p align="center">
-  <img src="./images/npm-imported-packages-lens.jpg" height="70" />
+  <img src="./images/npm-package-lookup.jpg" height="70" />
 </p>
 
 [Download from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
@@ -13,7 +13,7 @@ that we are not familiar with. This extension helps you learn more about a
 package being used in your codebase by providing links to the NPM package,
 Homepage, and Git Repository.
 
-NPM Imported Package Lens is the ultimate onboarding VS Code extension. When
+NPM Packages Lookup is the ultimate onboarding VS Code extension. When
 reading code, we sometimes come across JS/TS packages that are unfamiliar, with
 this extension, just hover on the imported package, and you will get information
 from NPM, about the current version of the extension being used, with links to
@@ -41,7 +41,7 @@ as shown below 🤯🤯🤯🤯.
 - Supports package.json
 - Version and License information
 - Support for Vue, Astro, and Svelte
-  ([Suggestions](https://github.com/mainawycliffe/npm-imported-packages-lens/issues/new)
+  ([Suggestions](https://github.com/mainawycliffe/npm-package-lookup/issues/new)
   and PRs are welcome)
 
 ## Roadmap
