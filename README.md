@@ -6,13 +6,18 @@
 
 [Download from Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MainaWycliffe.view-package-on-npm)
 
-## The Ultimate tool for Developers
+## Learn more about a package being used in your codebase
 
-This is the ultimate onboarding VS Code extension. When reading code, we
-sometimes come across JS/TS packages that are unfamiliar, with this extension,
-just hover on the imported package, and you will get information from NPM, about
-the current version of the extension being used, with links to the NPM
-package,Homepage and Git Repository.
+NPM has hundreds of thousands of packages, and sometimes we come across packages
+that we are not familiar with. This extension helps you learn more about a
+package being used in your codebase by providing links to the NPM package,
+Homepage, and Git Repository.
+
+NPM Imported Package Lens is the ultimate onboarding VS Code extension. When
+reading code, we sometimes come across JS/TS packages that are unfamiliar, with
+this extension, just hover on the imported package, and you will get information
+from NPM, about the current version of the extension being used, with links to
+the NPM package,Homepage and Git Repository.
 
 !["Screenshot"](./screenshots/screenshot.png)
 
@@ -35,21 +40,22 @@ as shown below 🤯🤯🤯🤯.
 - ES Modules imports Support
 - Supports package.json
 - Version and License information
-- Experimental Support for Vue, Astro, and Svelte (Suggestions and PRs are
-  welcome)
+- Support for Vue, Astro, and Svelte
+  ([Suggestions](https://github.com/mainawycliffe/npm-imported-packages-lens/issues/new)
+  and PRs are welcome)
 
 ## Roadmap
 
-| Feature                                | Status       |
-| -------------------------------------- | ------------ |
-| Support version checks on package.json | ✅           |
-| Support for ES Modules imports         | ✅           |
-| Support for Typescript/Javascript      | ✅           |
-| Support for JSX/TSX                    | ✅           |
-| Support for Vue                        | Experimental |
-| Support for Astro                      | Experimental |
-| Support for Svelte                     | Experimental |
-| Support CommonJS Modules               | 🚧           |
+| Feature                                | Status |
+| -------------------------------------- | ------ |
+| Support version checks on package.json | ✅     |
+| Support for ES Modules imports         | ✅     |
+| Support for Typescript/Javascript      | ✅     |
+| Support for JSX/TSX                    | ✅     |
+| Support for Vue                        | ✅     |
+| Support for Astro                      | ✅     |
+| Support for Svelte                     | ✅     |
+| Support CommonJS Modules               | 🚧     |
 
 ## Why
 
