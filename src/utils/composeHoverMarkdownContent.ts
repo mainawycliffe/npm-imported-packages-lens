@@ -19,7 +19,7 @@ const contentMarkdownTemplate = `
 
 #### Links
 
-[NPM](https://npmjs.com/package/<%= packageName %>) | [<%= repositoryName %>](<%= gitRepositoryURL %>) | <% if (docsHomePageURL) { %> [Homepage](<%= docsHomePageURL %>) <% } %>
+[NPM](https://npmjs.com/package/<%= packageName %>) <% if (repositoryName) { %> | [<%= repositoryName %>](<%= gitRepositoryURL %>) <% } %>  <% if (docsHomePageURL) { %> | [Homepage](<%= docsHomePageURL %>) <% } %>
 
 <% if (reportBugURL) { %>
 [View issues/Report bug](<%= reportBugURL %>)
@@ -35,7 +35,11 @@ _**⭐️ Latest version**: <%= latestPackageVersion %>_
 **License**: <%= packageDetails.license %>
 `;
 
-function determineRepositoryNameFromGitURL(gitURL: string): string {
+function determineRepositoryNameFromGitURL(gitURL: string): string | undefined {
+  if (!gitURL) {
+    return undefined;
+  }
+
   if (gitURL.toLowerCase().includes("gitlab")) {
     return "GitLab";
   }
